@@ -86,15 +86,14 @@ async def gameoflife():
             if worldCache[SpaceVector(coord[0]-1, coord[1]+1, coord[2])].light():
                 neighbors=neighbors+1
 
-
             #Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
-            if currentBlock.light() and neighbors > 1:
+            if currentBlock.light() and neighbors < 2:
                 world[coord]=blackBlock 
             
             #Any live cell with two or three live neighbours lives on to the next generation.
 
             #Any live cell with more than three live neighbours dies, as if by overpopulation.
-            if currentBlock.light() and neighbors < 3:
+            if currentBlock.light() and neighbors > 3:
                 world[coord]=blackBlock 
 
             #Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
