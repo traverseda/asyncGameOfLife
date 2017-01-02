@@ -50,7 +50,7 @@ SpaceVector(0,2,0):whiteBlock,
 SpaceVector(0,3,0):whiteBlock,
 }
 
-world = collections.ChainMap(root.world, blinker, background)
+world = collections.ChainMap(root.world, blinker, core, background)
 #world=root.world
 #world = background
 
@@ -120,10 +120,15 @@ windowarea=sorted(cubeGenerator([-21,-21,0],[42,42,1]))
 from colorama import init, Fore, Back, Style
 init()
 
+
+import time
+start_time = time.time()
+
 async def asciiWindow():
     while True:
         counter['frames'] += 1
         print(Style.RESET_ALL+str(counter))
+        print("clocktime: "+ str((time.time() - start_time)))
         for coord in windowarea:
             if world[SpaceVector(coord[0], coord[1], coord[2])].light():
                 print(Back.WHITE+" ", end="")
@@ -131,7 +136,7 @@ async def asciiWindow():
                 print(Back.BLACK+" ", end="")
             if coord[1]==20:
                 print(Style.RESET_ALL+str(coord))
-        await asyncio.sleep(0.75)
+        await asyncio.sleep(0.5)
 
 def main():
 #    asyncio.async(interactive_shell())
